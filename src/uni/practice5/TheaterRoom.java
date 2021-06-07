@@ -77,6 +77,7 @@ public class TheaterRoom {
         System.out.println("영화제목 : " + this.MovieOnAir.getTitle());
         System.out.println("영화장르 : " + this.MovieOnAir.getGenre());
         System.out.println("영화관람등급 : " + this.MovieOnAir.getViewingClass().getValue());
-        System.out.println("영화상영시간 : " + this.StartTime.getDurationFrom(EndTime));
+        System.out.println("영화상영시간 : " + this.StartTime.getDurationFrom(this.EndTime));
+        System.out.println();
     }
 }

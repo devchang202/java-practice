@@ -1,5 +1,7 @@
 package uni.practice5;
 
+import com.sun.corba.se.impl.logging.InterceptorsSystemException;
+
 public class MovieManager {
     final static int THEATER_ROOM_NUM = 10;
     private TheaterRoom[] Theater;
@@ -7,6 +9,7 @@ public class MovieManager {
     private String Password;
 
     {
+        Theater = new TheaterRoom[THEATER_ROOM_NUM];
         for (int i = 0; i < THEATER_ROOM_NUM; i++) {
             Theater[i] = new TheaterRoom();
         }
@@ -47,6 +50,7 @@ public class MovieManager {
 
     void insertMovie(int RoomNumber, Movie movie, Time StartTime, Time EndTime) {
         if (RoomNumber < 1 || RoomNumber > THEATER_ROOM_NUM) {
+            System.out.println("The room number is out of range");
             return;
         }
         Theater[RoomNumber - 1].modifyMovieOnAir(movie);
@@ -55,19 +59,22 @@ public class MovieManager {
         Theater[RoomNumber - 1].modifyEndTime(EndTime);
     }
 
-    void deleteMovie(TheaterRoom[] Theater, int RoomNumber) {
-        Theater[RoomNumber - 1] = new TheaterRoom(RoomNumber);
+    void deleteMovie(int RoomNumber) {
+        if (Theater[RoomNumber - 1].getRoomNumber() == 0) {
+            System.out.println("상영중인 영화가 없습니다.");
+        } else {
+            Theater[RoomNumber - 1] = new TheaterRoom(0);
+        }
     }
 
     void printAllTheater() {
         for (int i = 0; i < THEATER_ROOM_NUM; i++) {
             switch (Theater[i].getRoomNumber()) {
                 case 0:
-                    System.out.println("해당 상영관에서 상옇하는 영화가 없습니다.");
+//                    System.out.println(" 상영관에서 상옇하는 영화가 없습니다.");
                     break;
                 default:
                     Theater[i].printTheaterInfo();
-                    System.out.println();
                     break;
             }
         }

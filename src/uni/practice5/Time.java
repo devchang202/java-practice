@@ -13,9 +13,9 @@ public class Time {
     }
 
     Time(int hour, int minute) {
-        if (false == isValidTime(hour, minute)) {
-            this.hour = MIN_HOUR;
-            this.minute = MIN_MINUTE;
+        if (!isValidTime(hour, minute)) {
+            this.hour = -1;
+            this.minute = -1;
         } else {
             this.hour = hour;
             this.minute = minute;
@@ -23,23 +23,22 @@ public class Time {
     }
 
     static boolean isValidTime(int hour, int minute) {
-        if (hour <= MAX_HOUR && hour >= MIN_HOUR &&
-                minute <= MAX_MINUTE && minute >= MIN_MINUTE) {
-            return true;
-        }
+        return (hour <= MAX_HOUR && hour >= MIN_HOUR &&
+                minute <= MAX_MINUTE && minute >= MIN_MINUTE);
+    }
 
-        return false;
+    boolean isValidTime() {
+        return (hour != -1 && minute != -1);
     }
 
     void setTime(int hour, int minute) {
-        if (false == isValidTime(hour, minute)) {
+        if (!isValidTime(hour, minute)) {
             System.out.println("This is invalid time");
         }
     }
 
     public String toString() {
-        String tmp  = this.hour + ":" + this.minute;
-        return tmp;
+        return this.hour + ":" + this.minute;
     }
 
     public String getDurationFrom(Time endTime) {
@@ -50,7 +49,6 @@ public class Time {
             minute = 60 + minute;
         }
 
-        String result = hour + "시 " + minute + "분 ";
-        return result;
+        return hour + "시간 " + minute + "분 ";
     }
 }
